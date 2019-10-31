@@ -35,8 +35,9 @@ class ProLoggerHandler(logging.Handler):
         print(record.msg, record.exc_info)
         if record.exc_info is not None:
             title, message = self.get_title_and_message_from_exc_info(record.exc_info)
-        data = {'level': level_no, 'title': title, 'message': message, "tags": record.tags}
-        self.client.send_data(data=data)
+        main_data = {'level': level_no, 'title': title, 'message': message, "tags": record.tags}
+        complete_data = {'main_data': main_data}
+        self.client.send_data(data=complete_data)
         # print(dir(record))
         # if record.levelname == "ERROR":
         #     print(record.created, record.exc_info, record.exc_text, record.filename, record.funcName,
@@ -76,8 +77,9 @@ class ProLoggerHandler(logging.Handler):
         print("handling fatal")
         level = LEVEL_FATAL
         title, message = self.get_title_and_message_from_exc_info(exc_info)
-        data = {'level': level, 'title': title, 'tags': {}, 'message': message}
-        self.client.send_data(data=data)
+        main_data = {'level': level, 'title': title, 'tags': {}, 'message': message}
+        complete_data = {'main_data': main_data}
+        self.client.send_data(data=complete_data)
 
 
 if __name__ == '__main__':
