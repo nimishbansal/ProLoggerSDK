@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name="prologgersdk-pkg-nimishbansal",
+    name="prologgersdk",
     version="0.0.1",
     author="Nimish Bansal",
     author_email="nimish4july1998@gmail.com",
