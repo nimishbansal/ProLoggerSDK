@@ -1,3 +1,8 @@
+import linecache
+from inspect import stack
+
+from typing import List
+
 BASE_URL = 'http://192.168.0.107:8000/'
 AUTH_ENDPOINT = BASE_URL + 'projects/verify_secret_key/'
 EVENT_ACCEPT_ENDPOINT = BASE_URL + 'projects/new_log_entry/'
@@ -37,3 +42,49 @@ LEVEL_NAME_TO_LEVEL_VALUE_DICT = {
     FATAL: LEVEL_FATAL,
     CRITICAL: LEVEL_CRITICAL
 }
+
+
+def get_frame_data():
+    """
+    Sample structure :
+
+    frames_data = {
+        'no_of_frames': None,
+        'frames': [
+            {
+                'code_context': None,
+                'pre_code_context': None,
+                'post_code_context': None,
+                'line_no': None,
+                'filename': None,
+                'locals': {
+
+                },
+            }
+        ]
+    }
+
+    :return:
+    """
+    current_stack = stack()
+    _frames_data = {'frames': List[dict], 'no_of_frames': len(current_stack)}
+
+    for frame_info in current_stack:
+        current_frame = dict()
+        filename = frame_info.filename
+        line_no = frame_info.lineno
+        no_of_lines_in_file = len(linecache.getlines(filename))
+
+        pre_code_lines = linecache.getlines(filename)[max(0, line_no - 5):line_no - 1]
+        post_code_lines = linecache.getlines(filename)[line_no:min(line_no + 5, no_of_lines_in_file)]
+
+        current_frame['filename'] = filename
+        current_frame['line_no'] = line_no
+        current_frame['locals'] = frame_info.frame.f_locals
+        current_frame['code_context'] = frame_info.code_context
+        current_frame['pre_code_context'] = pre_code_lines
+        current_frame['post_code_context'] = post_code_lines
+
+        _frames_data['frames'].append(current_frame)
+
+    return _frames_data

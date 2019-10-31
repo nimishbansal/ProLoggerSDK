@@ -1,5 +1,8 @@
+import inspect
+import linecache
 import logging
 import random
+from inspect import stack
 
 from .log import ProLoggerHandler
 
@@ -23,6 +26,6 @@ try:
     a = [1, 2, 3, 4]
     print(a[20])
 except Exception as E:
-    exec (random.choice(
+    exec(random.choice(
         ["logger.debug(E, exc_info=True)", "logger.info(E, exc_info=True)", "logger.warning(E, exc_info=True)",
          "logger.error(E, exc_info=True)"]))
