@@ -1,8 +1,6 @@
 import linecache
 from inspect import stack
 
-from typing import List
-
 BASE_URL = 'http://192.168.0.107:8000/'
 AUTH_ENDPOINT = BASE_URL + 'projects/verify_secret_key/'
 EVENT_ACCEPT_ENDPOINT = BASE_URL + 'projects/new_log_entry/'
@@ -67,7 +65,7 @@ def get_frame_data():
     :return:
     """
     current_stack = stack()
-    _frames_data = {'frames': List[dict], 'no_of_frames': len(current_stack)}
+    _frames_data = {'frames': [], 'no_of_frames': len(current_stack)}
 
     for frame_info in current_stack:
         current_frame = dict()

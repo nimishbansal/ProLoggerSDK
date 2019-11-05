@@ -57,7 +57,6 @@ class Client(object):
     def send_data(self, data):
         if not self.setup_finished:
             raise AssertionError('call setup() with secret_key first')
-        print(data)
         self.format_log_entry_data(data['main_data'])
         r = requests.post(EVENT_ACCEPT_ENDPOINT,
                           data=json.dumps(data),
