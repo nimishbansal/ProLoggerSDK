@@ -4,7 +4,7 @@ import logging
 import sys
 
 from .Client import Client
-from .utils import LEVEL_FATAL
+from .utils import LEVEL_FATAL, LEVEL_VALUE_TO_LEVEL_NAME_DICT
 
 __excepthook__ = None
 
@@ -69,6 +69,7 @@ class ProLoggerHandler(logging.Handler):
             record.tags = dict()
 
         tags = record.tags
+
         message = record.msg
         exc_info = record.exc_info
         level_no = record.levelno
@@ -104,6 +105,10 @@ class ProLoggerHandler(logging.Handler):
             tags = {}
         else:
             assert type(tags) == dict
+
+        # populate basic tags
+        tags['level'] = LEVEL_VALUE_TO_LEVEL_NAME_DICT[level_no]
+
         main_data = {'level': level_no, 'tags': tags, 'message': None, 'title': msg}
         is_exception = False
         exception_name = None
@@ -122,6 +127,8 @@ class ProLoggerHandler(logging.Handler):
                 main_data['title'] = exception_name
                 main_data['message'] = exception_string
 
+        if main_data['message'] is None:
+            main_data['message'] = str(msg)
         complete_data = {'main_data': main_data, 'full_data': {'exception': None}}
         if is_exception:
             complete_data['full_data']['exception'] = {}
@@ -129,16 +136,27 @@ class ProLoggerHandler(logging.Handler):
             complete_data['full_data']['exception']['string'] = exception_string
             complete_data['full_data']['exception']['frames'] = exception_frames_data
 
-        complete_data = json.loads(json.dumps(complete_data, default=lambda x: str(x)))
+        complete_data = json.loads(json.dumps(complete_data, default=lambda x: repr(x)))
         self.client.send_data(data=complete_data)
 
 
 if __name__ == '__main__':
-    pro_logger_handler = ProLoggerHandler(secret_key='1234567890')
+    pro_logger_handler = ProLoggerHandler(secret_key='UAKNEcOBW6')
     logger = logging.getLogger('testProLogger')
     logger.setLevel(logging.DEBUG)
     logger.addHandler(pro_logger_handler)
+
+    def fun3(x, y, z):
+        a = 4
+        b = 5
+        z = 4/0
+
+    def fun2():
+        z =9
+        fun3(10, 20, z)
+
     try:
-        print(4 / 0)
+        print(fun2())
     except Exception as E:
-        logger.error(E, exc_info=True)
+        print("ouu")
+        logger.warning("he hehehe haas dele", exc_info=True)

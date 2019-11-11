@@ -1,7 +1,8 @@
 import linecache
 from inspect import stack
 
-BASE_URL = 'http://192.168.0.107:8000/'
+# BASE_URL = 'http://192.168.0.107:8000/'
+BASE_URL = 'http://18.223.156.125/'
 AUTH_ENDPOINT = BASE_URL + 'projects/verify_secret_key/'
 EVENT_ACCEPT_ENDPOINT = BASE_URL + 'projects/new_log_entry/'
 
@@ -39,6 +40,16 @@ LEVEL_NAME_TO_LEVEL_VALUE_DICT = {
     INFO: LEVEL_INFO,
     FATAL: LEVEL_FATAL,
     CRITICAL: LEVEL_CRITICAL
+}
+
+LEVEL_VALUE_TO_LEVEL_NAME_DICT = {
+    LEVEL_NOTSET: NOTSET,
+    LEVEL_DEBUG: DEBUG,
+    LEVEL_WARNING: WARNING,
+    LEVEL_ERROR: ERROR,
+    LEVEL_INFO: INFO,
+    LEVEL_FATAL: FATAL,
+    LEVEL_CRITICAL: CRITICAL
 }
 
 

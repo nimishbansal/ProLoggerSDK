@@ -1,8 +1,4 @@
-import inspect
-import linecache
 import logging
-import random
-from inspect import stack
 
 from .log import ProLoggerHandler
 
@@ -38,5 +34,7 @@ def fun2():
 # fun2()
 try:
     4 / 0
-except:
+except Exception as E:
+    print(E)
+    print("ouyk")
     logger.error("hmmou", 1, 2, 3, 4, exc_info=True, extra={"tags": {"abc": "Def"}})
