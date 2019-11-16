@@ -141,7 +141,7 @@ class ProLoggerHandler(logging.Handler):
 
 
 if __name__ == '__main__':
-    pro_logger_handler = ProLoggerHandler(secret_key='UAKNEcOBW6')
+    pro_logger_handler = ProLoggerHandler(secret_key='EXutay6NLO')
     logger = logging.getLogger('testProLogger')
     logger.setLevel(logging.DEBUG)
     logger.addHandler(pro_logger_handler)

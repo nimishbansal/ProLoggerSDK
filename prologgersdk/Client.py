@@ -1,9 +1,9 @@
 import json
-import requests
-import sys
 
-sys.path.append("/home/nimish/PycharmProjects/ProLoggerBackend/")
+import requests
+
 from .utils import AUTH_ENDPOINT, EVENT_ACCEPT_ENDPOINT, LEVEL_NOTSET
+
 
 # def foo(exctype, value, tb):
 #     print('My Error Information')

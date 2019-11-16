@@ -1,8 +1,8 @@
 import linecache
 from inspect import stack
 
-# BASE_URL = 'http://192.168.0.107:8000/'
-BASE_URL = 'http://18.223.156.125/'
+# BASE_URL = 'http://192.168.0.107:5000/'
+BASE_URL = 'http://3.17.182.118:5000/'
 AUTH_ENDPOINT = BASE_URL + 'projects/verify_secret_key/'
 EVENT_ACCEPT_ENDPOINT = BASE_URL + 'projects/new_log_entry/'
 
