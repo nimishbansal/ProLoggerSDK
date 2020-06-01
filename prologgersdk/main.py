@@ -8,7 +8,6 @@ logger = logging.getLogger('testProLogger')
 logger.setLevel(logging.DEBUG)
 logger.addHandler(pro_logger_handler)
 
-
 logger.debug("1", extra={'tags': {"abc": "hmm1"}})
 logger.info("2", extra={'tags': {"def": "hmm2"}})
 logger.warning("3", extra={'tags': {"ghi": "hmm3"}})
@@ -18,6 +17,7 @@ try:
     4 / 0
 except Exception as E:
     logger.error(E, exc_info=True)
+
 
 # raise KeyboardInterrupt
 
